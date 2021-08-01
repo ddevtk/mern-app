@@ -22,9 +22,15 @@ const Product = ({ product }) => {
             disabled
             allowHalf
             defaultValue={rating}
-            style={{ fontSize: '1.2em', margin: '0 4px 0 0' }}
+            style={{ fontSize: '1.2em' }}
           />
-          {numReviews} reviews
+          <span
+            style={{
+              margin: '0px 0 0 4px',
+            }}
+          >
+            {numReviews} reviews
+          </span>
         </div>
         <h3 className='card-title'>{price}</h3>
       </div>

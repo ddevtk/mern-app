@@ -13,5 +13,8 @@ main {
   text-decoration: underline !important;
 }
 .ant-rate-star:not(:last-child) {
-  margin-right: 4px !important;
+  margin-right: 2px !important;
+}
+.btn:focus {
+  box-shadow: none !important;
 }
