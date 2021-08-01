@@ -1,0 +1,28 @@
+{
+  "name": "ddevtkshop",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ddevtk/mern-app.git"
+  },
+  "author": "ddevtk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ddevtk/mern-app/issues"
+  },
+  "homepage": "https://github.com/ddevtk/mern-app#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "concurrently": "^6.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
+}
