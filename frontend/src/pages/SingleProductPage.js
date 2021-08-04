@@ -27,15 +27,16 @@ const SingleProductPage = () => {
     try {
       const { data } = await axios(`/api/products/${id}`);
       setProduct(data);
-      // setLoading(false);
+      setLoading(false);
     } catch (error) {
-      // setLoading(false);
+      setLoading(false);
       console.error(error);
     }
   };
 
   useEffect(() => {
     fetchSingleProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

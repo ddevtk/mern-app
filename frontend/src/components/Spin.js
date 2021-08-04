@@ -4,7 +4,7 @@ import { Spinner } from 'react-bootstrap';
 const Spin = () => {
   return (
     <div style={{ textAlign: 'center' }}>
-      <Spinner animation='border' style={{ fontSize: '40px' }} />
+      <Spinner animation='border' size='xl' />
     </div>
   );
 };
