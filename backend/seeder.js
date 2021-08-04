@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const chalk = require('chalk');
 require('dotenv').config();
 const connectDB = require('./config/db');
-const User = require('./model/user.model');
-const Product = require('./model/product.model');
-const Order = require('./model/order.model');
+const User = require('./model/userModel');
+const Product = require('./model/productModel');
+const Order = require('./model/orderModel');
 const users = require('./data/users');
 const products = require('./data/products');
 

@@ -5,8 +5,10 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const chalk = require('chalk');
-
 const app = express();
+
+const productRoutes = require('./routes/productRoutes');
+
 dotenv.config();
 
 app.use(cors());
@@ -14,16 +16,23 @@ app.use(bodyParser.json());
 
 connectDB();
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('API is running...');
 });
+app.use('/api/products', productRoutes);
 
-app.get('/api/products', (req, res) => {
-  res.status(200).json(products);
+app.all('*', (req, res, next) => {
+  next(new Error(`Can't not find ${req.originalUrl} on this server`));
 });
-app.get('/api/products/:id', (req, res) => {
-  const product = products.find((p) => p._id === req.params.id);
-  res.status(200).json(product);
+
+app.use((err, req, res, next) => {
+  console.log(res.statusCode);
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  res.status(statusCode);
+  res.json({
+    message: err.message,
+    stack: process.env.NODE_ENV === 'production' ? null : err.stack,
+  });
 });
 
 const port = process.env.PORT || 5000;
