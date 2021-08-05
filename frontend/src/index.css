@@ -4,6 +4,14 @@ main {
 .navbar-collapse {
   justify-content: space-between;
 }
+h1 {
+  font-size: 1.8rem !important;
+  padding: 1rem 0;
+}
+h2 {
+  font-size: 1.4rem !important;
+  padding: 0.5rem 0;
+}
 
 .product-title {
   text-decoration: none !important;
@@ -17,4 +25,7 @@ main {
 }
 .btn:focus {
   box-shadow: none !important;
+}
+.ant-result-info .ant-result-icon > .anticon {
+  color: black !important;
 }

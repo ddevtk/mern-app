@@ -29,14 +29,22 @@ const Header = () => {
               className='mr-auto my-2 my-lg-0'
               style={{ maxHeight: '100px' }}
             >
-              <Link to='/cart' style={{ textDecoration: 'none' }}>
-                <Nav.Link>
-                  <MdShoppingCart style={{ margin: '-3px 3px 0 0' }} />
-                  Cart
-                </Nav.Link>
+              <Link
+                to='/cart'
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
+                  marginRight: '10px',
+                }}
+              >
+                <MdShoppingCart style={{ margin: '-3px 3px 0 0' }} />
+                Cart
               </Link>
-              <Link to='/singin' style={{ textDecoration: 'none' }}>
-                <Nav.Link>Sign in</Nav.Link>
+              <Link
+                to='/singin'
+                style={{ textDecoration: 'none', color: 'white' }}
+              >
+                Sign in
               </Link>
             </Nav>
           </Navbar.Collapse>

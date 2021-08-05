@@ -14,7 +14,6 @@ const HomePage = () => {
   useEffect(() => {
     dispatch(getAllProduct());
   }, [dispatch]);
-  console.log(isLoading, error);
 
   return (
     <>

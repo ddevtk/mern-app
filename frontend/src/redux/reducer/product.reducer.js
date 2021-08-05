@@ -12,7 +12,6 @@ export const productListReducer = (
       };
 
     case productActionType.GET_ALL_PRODUCT_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         products: action.payload,
@@ -42,7 +41,6 @@ export const productDetailReducer = (
       };
 
     case productActionType.GET_PRODUCT_DETAIL_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         product: action.payload,

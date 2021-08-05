@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import { Rate, Select } from 'antd';
 import 'antd/dist/antd.css';
 import {
@@ -18,15 +18,22 @@ const SingleProductPage = () => {
   const { Option } = Select;
   const { id } = useParams();
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const [qty, setQty] = useState(1);
+
   const { isLoading, error, product } = useSelector(
     (state) => state.productDetail
   );
 
+  const addToCartHandler = () => {
+    history.push(`/cart/${id}?qty=${qty}`);
+  };
+
   useEffect(() => {
     dispatch(getSingleProduct(id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log(product);
 
   return (
     <>
@@ -95,11 +102,12 @@ const SingleProductPage = () => {
                         <Col>
                           <Select
                             style={{ width: 110 }}
-                            defaultValue='Quantity'
+                            defaultValue='1'
+                            onChange={(value) => setQty(value)}
                           >
                             {Array.from(
                               new Array(product.countInStock),
-                              (el, id) => id + 1
+                              (_el, id) => id + 1
                             ).map((el, id) => {
                               return (
                                 <Option key={id} value={el}>
@@ -118,6 +126,7 @@ const SingleProductPage = () => {
                       className='btn btn-primary'
                       style={{ width: '100%' }}
                       disabled={product.countInStock === 0}
+                      onClick={addToCartHandler}
                     >
                       ADD TO CART
                     </button>
