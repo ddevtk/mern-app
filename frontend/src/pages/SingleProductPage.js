@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { Rate, Select } from 'antd';
 import 'antd/dist/antd.css';
@@ -10,39 +11,28 @@ import {
   ListGroupItem,
   Row,
 } from 'react-bootstrap';
-import axios from 'axios';
 import Spin from '../components/Spin';
+import { getSingleProduct } from '../redux/actions/product.action';
 
 const SingleProductPage = () => {
   const { Option } = Select;
-  const [product, setProduct] = useState({});
-  const [loading, setLoading] = useState(false);
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { isLoading, error, product } = useSelector(
+    (state) => state.productDetail
+  );
+
+  useEffect(() => {
+    dispatch(getSingleProduct(id));
+  }, []);
 
   console.log(product);
 
-  const { id } = useParams();
-
-  const fetchSingleProduct = async () => {
-    setLoading(true);
-    try {
-      const { data } = await axios(`/api/products/${id}`);
-      setProduct(data);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchSingleProduct();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <>
-      {loading && <Spin />}
-      {!loading && (
+      {isLoading && <Spin />}
+      {!isLoading && error !== null && <h2>{error}</h2>}
+      {!isLoading && error === null && (
         <>
           <Link to='/' className='btn btn-outline-primary my-3'>
             GO BACK
