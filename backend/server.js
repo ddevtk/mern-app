@@ -1,5 +1,4 @@
 const express = require('express');
-const products = require('./data/products');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -26,7 +25,6 @@ app.all('*', (req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(res.statusCode);
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   res.status(statusCode);
   res.json({

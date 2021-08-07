@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 import { Select, Button } from 'antd';
 import { FaTrashAlt } from 'react-icons/fa';
+import { GrFormClose } from 'react-icons/gr';
 import NoProduct from '../components/NoProduct';
 
 const CartPage = ({ location }) => {
@@ -60,6 +61,10 @@ const CartPage = ({ location }) => {
                   </Col>
                   <Col md={2}>{item.price}</Col>
                   <Col md={2}>
+                    <GrFormClose />
+                    {item.qty}
+                  </Col>
+                  <Col md={2}>
                     <Select
                       style={{ width: 110 }}
                       defaultValue='1'
@@ -77,7 +82,7 @@ const CartPage = ({ location }) => {
                       })}
                     </Select>
                   </Col>
-                  <Col md={3}>
+                  <Col md={1}>
                     <Button onClick={() => removeItem(product)}>
                       <FaTrashAlt />
                     </Button>
