@@ -5,8 +5,6 @@ const {
   getProductById,
 } = require('../controllers/productController');
 
-const catchAsyncFn = require('../utils/catchAsyncFn');
-
 router.route('/').get(getAllProduct);
 router.route('/:id').get(getProductById);
 
