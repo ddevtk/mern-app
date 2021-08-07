@@ -8,7 +8,7 @@ export const loginReducer = (state = {}, action) => {
         isLoading: true,
       };
     case userActionType.LOGIN_SUCCESS:
-      localStorage.setItem('user', JSON.stringify(action.payload));
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
       return {
         ...state,
         isLoading: false,

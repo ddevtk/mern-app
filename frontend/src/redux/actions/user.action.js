@@ -2,6 +2,7 @@ import axios from 'axios';
 import userActionType from '../type/user.type';
 
 export const login = (email, password) => async (dispatch) => {
+  console.log(email, password);
   dispatch({ type: userActionType.LOGIN_REQUEST });
   try {
     const config = {
@@ -9,7 +10,11 @@ export const login = (email, password) => async (dispatch) => {
         'Content-Type': 'application/json',
       },
     };
-    const { data } = axios.post('/api/user/login', { email, password }, config);
+    const { data } = await axios.post(
+      '/api/user/login',
+      { email, password },
+      config
+    );
     console.log(data);
     dispatch({ type: userActionType.LOGIN_SUCCESS, payload: data });
   } catch (err) {
@@ -21,4 +26,8 @@ export const login = (email, password) => async (dispatch) => {
           : err.message,
     });
   }
+};
+export const logout = () => (dispatch) => {
+  localStorage.removeItem('userInfo');
+  dispatch({ type: userActionType.LOGOUT });
 };
