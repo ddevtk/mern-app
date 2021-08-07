@@ -9,6 +9,7 @@ import './bootstrap.min.css';
 import CartPage from './pages/CartPage';
 import BackToTop from './components/BackToTop';
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -24,6 +25,13 @@ function App() {
               <Redirect to='/' />
             ) : (
               <LoginPage />
+            )}
+          </Route>
+          <Route exact path='/register'>
+            {localStorage.getItem('userInfo') ? (
+              <Redirect to='/' />
+            ) : (
+              <RegisterPage />
             )}
           </Route>
         </Container>

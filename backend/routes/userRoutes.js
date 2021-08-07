@@ -7,7 +7,7 @@ const {
 } = require('../controllers/userController');
 const protect = require('../middleware/authMiddleware');
 
-router.route('/').post(register);
+router.route('/register').post(register);
 router.route('/login').post(authUser);
 router.route('/profile').get(protect, userProfile);
 
