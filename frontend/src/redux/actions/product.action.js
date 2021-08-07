@@ -1,5 +1,5 @@
 import axios from 'axios';
-import productActionType from '../types/product.type';
+import productActionType from '../type/product.type';
 
 export const getAllProduct = () => async (dispatch) => {
   dispatch({ type: productActionType.GET_ALL_PRODUCT_REQUEST });

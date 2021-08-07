@@ -1,4 +1,4 @@
-import productActionType from '../types/product.type';
+import productActionType from '../type/product.type';
 
 export const productListReducer = (
   state = { products: [], isLoading: false, error: null },
