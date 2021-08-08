@@ -29,3 +29,33 @@ export const loginReducer = (state = {}, action) => {
       return state;
   }
 };
+export const updateProfileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userActionType.UPDATE_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case userActionType.UPDATE_SUCCESS:
+      localStorage.setItem('userInfo', JSON.stringify(action.payload));
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        user: action.payload,
+      };
+    case userActionType.UPDATE_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        error: action.payload,
+      };
+    case userActionType.REFRESH:
+      return {
+        user: JSON.parse(localStorage.getItem('uerInfo')),
+      };
+    default:
+      return state;
+  }
+};

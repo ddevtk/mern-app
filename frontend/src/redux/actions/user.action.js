@@ -51,6 +51,36 @@ export const register = (name, email, password) => async (dispatch) => {
   }
 };
 
+export const updateProfile = (userInfo) => async (dispatch, getState) => {
+  dispatch({ type: userActionType.UPDATE_REQUEST });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.put(`/api/user/profile`, userInfo, config);
+    dispatch({ type: userActionType.UPDATE_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: userActionType.UPDATE_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const refresh = () => (dispatch) => {
+  dispatch({ type: userActionType.REFRESH });
+};
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: userActionType.LOGOUT });

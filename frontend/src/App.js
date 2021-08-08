@@ -10,6 +10,7 @@ import CartPage from './pages/CartPage';
 import BackToTop from './components/BackToTop';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -32,6 +33,13 @@ function App() {
               <Redirect to='/' />
             ) : (
               <RegisterPage />
+            )}
+          </Route>
+          <Route exact path='/profile'>
+            {localStorage.getItem('userInfo') ? (
+              <ProfilePage />
+            ) : (
+              <Redirect to='/login' />
             )}
           </Route>
         </Container>

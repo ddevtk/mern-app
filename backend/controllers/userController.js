@@ -4,7 +4,6 @@ const generateToken = require('../utils/generateToken');
 
 const authUser = catchAsyncFn(async (req, res, next) => {
   const { email, password } = req.body;
-  console.log(req.body);
   const user = await User.findOne({ email });
   if (user && (await user.matchPassword(password))) {
     return res.status(200).json({
@@ -33,6 +32,28 @@ const userProfile = catchAsyncFn(async (req, res, next) => {
   return next(new Error('User not found'));
 });
 
+const updateUserProfile = catchAsyncFn(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+    }
+    const updateUser = await user.save();
+    res.json({
+      _id: updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+      isAdmin: updateUser.isAdmin,
+      token: generateToken(updateUser._id),
+    });
+  } else {
+    res.status(404);
+    return next(new Error('User not found'));
+  }
+});
+
 const register = catchAsyncFn(async (req, res, next) => {
   const { name, email, password } = req.body;
   const existUser = await User.findOne({ email });
@@ -58,4 +79,4 @@ const register = catchAsyncFn(async (req, res, next) => {
   return next(new Error('Invalid user data'));
 });
 
-module.exports = { authUser, userProfile, register };
+module.exports = { authUser, userProfile, register, updateUserProfile };

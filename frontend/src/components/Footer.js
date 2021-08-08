@@ -6,7 +6,18 @@ const Footer = () => {
     <footer>
       <Container>
         <Row className='text-center py-3'>
-          <Col>Copyright &copy; ddevtkShop</Col>
+          <Col>
+            Copyright &copy;{' '}
+            <a
+              target='_blank'
+              href='http://github.com/ddevtk/mern-app'
+              className='product-title'
+              rel='noreferrer'
+            >
+              ddevtk
+            </a>
+            Shop
+          </Col>
         </Row>
       </Container>
     </footer>

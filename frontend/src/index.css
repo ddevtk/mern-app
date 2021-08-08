@@ -17,11 +17,11 @@ h2 {
   text-decoration: none !important;
   color: #333 !important;
 }
-.cart-title:hover {
-  color: white !important;
-}
 .product-title:hover {
   text-decoration: underline !important;
+}
+.cart-title:hover {
+  color: white !important;
 }
 .ant-rate-star:not(:last-child) {
   margin-right: 2px !important;
