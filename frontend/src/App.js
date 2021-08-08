@@ -11,6 +11,8 @@ import BackToTop from './components/BackToTop';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
+import ShippingPage from './pages/ShippingPage';
+import PaymentMethodPage from './pages/PaymentMethodPage';
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
               <Redirect to='/login' />
             )}
           </Route>
+          <Route exact path='/shipping' component={ShippingPage} />
+          <Route exact path='/payment' component={PaymentMethodPage} />
         </Container>
       </main>
       <Footer />

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
 import { refresh, updateProfile } from '../redux/actions/user.action';
 import { message } from 'antd';
 import 'antd/dist/antd.css';

@@ -3,6 +3,7 @@ import { Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Rate } from 'antd';
 import 'antd/dist/antd.css';
+import { formatPrice } from '../utils/formatPrice';
 
 const Product = ({ product }) => {
   const { image, name, _id, rating, price, numReviews } = product;
@@ -32,7 +33,7 @@ const Product = ({ product }) => {
             {numReviews} reviews
           </span>
         </div>
-        <h3 className='card-title'>{price}</h3>
+        <h3 className='card-title'>{formatPrice(price)}</h3>
       </div>
     </Card>
   );

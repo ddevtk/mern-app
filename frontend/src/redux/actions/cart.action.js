@@ -16,7 +16,14 @@ export const addToCart = (id, qty) => async (dispatch) => {
     },
   });
 };
+
 export const removeFromCart = (id) => (dispatch) => {
-  console.log('hello11');
   dispatch({ type: cartActionType.REMOVE_FROM_CART, payload: id });
+};
+
+export const saveShippingAddress = (data) => (dispatch) => {
+  dispatch({ type: cartActionType.SAVE_SHIPPING_ADDRESS, payload: data });
+};
+export const savePaymentMethod = (method) => (dispatch) => {
+  dispatch({ type: cartActionType.SAVE_PAYMENT_METHOD });
 };

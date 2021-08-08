@@ -13,6 +13,7 @@ import {
 } from 'react-bootstrap';
 import Spin from '../components/Spin';
 import { getSingleProduct } from '../redux/actions/product.action';
+import { formatPrice } from '../utils/formatPrice';
 
 const SingleProductPage = () => {
   const { Option } = Select;
@@ -72,7 +73,9 @@ const SingleProductPage = () => {
                     {product.numReviews} reviews
                   </span>
                 </ListGroupItem>
-                <ListGroupItem>Price: {product.price}</ListGroupItem>
+                <ListGroupItem>
+                  Price: {formatPrice(product.price)}
+                </ListGroupItem>
                 <ListGroupItem>
                   Description: {product.description}
                 </ListGroupItem>
@@ -84,7 +87,7 @@ const SingleProductPage = () => {
                   <ListGroupItem>
                     <Row>
                       <Col>Price:</Col>
-                      <Col>{product.price}</Col>
+                      <Col>{formatPrice(product.price)}</Col>
                     </Row>
                   </ListGroupItem>
                   <ListGroupItem>

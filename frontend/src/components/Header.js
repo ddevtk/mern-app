@@ -9,7 +9,7 @@ import {
 } from 'react-bootstrap';
 import { MdShoppingCart } from 'react-icons/md';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { logout } from '../redux/actions/user.action';
 
 const Header = () => {
@@ -57,15 +57,15 @@ const Header = () => {
                 Cart
               </Link>
               {user?.name ? (
-                <NavDropdown title={user.name} id='name'>
-                  <Link to='/profile' className='product-title'>
-                    <NavDropdown.Item>Profile</NavDropdown.Item>
-                  </Link>
-                  <Link className='product-title'>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </Link>
+                <NavDropdown title={user.name}>
+                  <NavDropdown.Item>
+                    <Link className='product-title' to='/profile'>
+                      Profile
+                    </Link>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    <Link className='product-title'>Logout</Link>
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <Link

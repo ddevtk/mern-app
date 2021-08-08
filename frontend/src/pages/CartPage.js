@@ -14,6 +14,7 @@ import { Select, Button } from 'antd';
 import { FaTrashAlt } from 'react-icons/fa';
 import { GrFormClose } from 'react-icons/gr';
 import NoProduct from '../components/NoProduct';
+import { formatPrice } from '../utils/formatPrice';
 
 const CartPage = ({ location }) => {
   const { Option } = Select;
@@ -30,7 +31,6 @@ const CartPage = ({ location }) => {
   }, []);
 
   const removeItem = (id) => {
-    console.log(id);
     dispatch(removeFromCart(id));
   };
 
@@ -59,7 +59,7 @@ const CartPage = ({ location }) => {
                       {item.name}
                     </Link>
                   </Col>
-                  <Col md={2}>{item.price}</Col>
+                  <Col md={2}>{formatPrice(item.price)}</Col>
                   <Col md={2}>
                     <GrFormClose />
                     {item.qty}
@@ -101,12 +101,16 @@ const CartPage = ({ location }) => {
                 Subtotal ({cartItems.reduce((acc, cur) => acc + cur.qty, 0)})
                 items
               </h2>
-              {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}
+              {formatPrice(
+                cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)
+              )}
             </ListGroup.Item>
             <ListGroup.Item
               style={{ display: 'flex', justifyContent: 'center' }}
             >
-              <ButtonBs className='btn'>Process to checkout</ButtonBs>
+              <Link to='/shipping' className='btn'>
+                <ButtonBs>Process to checkout</ButtonBs>
+              </Link>
             </ListGroup.Item>
           </ListGroup>
         </Card>

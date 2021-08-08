@@ -23,15 +23,20 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
       }
 
     case cartActionType.REMOVE_FROM_CART:
-      console.log(action.payload);
       const cartItems = state.cartItems.filter(
         (item) => item.product !== action.payload
       );
-      console.log(cartItems);
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
       return {
         ...state,
         cartItems: cartItems,
+      };
+
+    case cartActionType.SAVE_SHIPPING_ADDRESS:
+      localStorage.setItem('shippingAddress', JSON.stringify(action.payload));
+      return {
+        ...state,
+        shippingAddress: action.payload,
       };
 
     default:
