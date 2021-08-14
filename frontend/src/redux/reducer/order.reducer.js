@@ -30,3 +30,58 @@ export const orderReducer = (state = {}, action) => {
       return state;
   }
 };
+export const orderDetailReducer = (state = {}, action) => {
+  switch (action.type) {
+    case orderActionType.ORDER_DETAIL_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case orderActionType.ORDER_DETAIL_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        order: action.payload,
+        isSuccess: true,
+      };
+
+    case orderActionType.ORDER_DETAIL_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+export const orderPayReducer = (state = {}, action) => {
+  switch (action.type) {
+    case orderActionType.ORDER_PAY_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+
+    case orderActionType.ORDER_PAY_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+      };
+
+    case orderActionType.ORDER_PAY_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    case orderActionType.ORDER_PAY_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};

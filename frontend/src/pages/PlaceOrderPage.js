@@ -37,7 +37,7 @@ const PlaceOrderPage = () => {
 
   cart.shippingPrice =
     cart.itemPrices > 1000000 || cart.itemPrices === 0 ? 0 : 30000;
-  cart.total = cart.itemPrices + cart.shippingPrice;
+  cart.totalPrice = cart.itemPrices + cart.shippingPrice;
 
   const placeOrderHandler = () => {
     dispatch(
@@ -158,7 +158,7 @@ const PlaceOrderPage = () => {
               <ListGroup.Item>
                 <Row>
                   <Col>Total</Col>
-                  <Col>{formatPrice(cart.total)}</Col>
+                  <Col>{formatPrice(cart.totalPrice)}</Col>
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item

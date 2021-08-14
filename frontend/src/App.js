@@ -14,9 +14,9 @@ import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
+import OrderDetail from './pages/OrderDetail';
 
 function App() {
-  console.log(localStorage.getItem('userInfo'));
   return (
     <Router>
       <Header />
@@ -49,6 +49,7 @@ function App() {
           <Route exact path='/shipping' component={ShippingPage} />
           <Route exact path='/payment' component={PaymentMethodPage} />
           <Route exact path='/place-order' component={PlaceOrderPage} />
+          <Route exact path='/order/:id' component={OrderDetail} />
         </Container>
       </main>
       <Footer />

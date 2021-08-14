@@ -36,4 +36,23 @@ const getOrderById = catchAsyncFn(async (req, res, next) => {
   return next(new Error('Order not found'));
 });
 
-module.exports = { addOrderItems, getOrderById };
+const updateOrderToPaid = catchAsyncFn(async (req, res, next) => {
+  const updateOrder = await Order.findByIdAndUpdate(req.params.id, {
+    idPaid: true,
+    paidAt: Date.now(),
+    paymentResults: {
+      id: req.body.id,
+      status: req.body.status,
+      updateTime: req.body.updateTime,
+      emailAddress: req.body.emailAddress,
+    },
+  });
+
+  if (updateOrder) {
+    return res.status(200).json(updateOrder);
+  }
+  res.status(404);
+  return next(new Error('Order not found'));
+});
+
+module.exports = { addOrderItems, getOrderById, updateOrderToPaid };
