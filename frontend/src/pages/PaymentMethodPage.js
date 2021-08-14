@@ -13,7 +13,7 @@ const PaymentMethodPage = () => {
 
   const [paymentMethod, setPaymentMethod] = useState('Paypal');
 
-  if (!shippingAddress) {
+  if (!shippingAddress?.city) {
     history.push('/shipping');
   }
 

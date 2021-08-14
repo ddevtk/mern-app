@@ -10,8 +10,8 @@ import { Form, Button } from 'react-bootstrap';
 const ShippingPage = () => {
   const { shippingAddress } = useSelector((state) => state.cart);
 
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
+  const [address, setAddress] = useState(shippingAddress?.address);
+  const [city, setCity] = useState(shippingAddress?.city);
 
   const dispatch = useDispatch();
   const history = useHistory();

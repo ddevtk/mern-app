@@ -27,6 +27,34 @@ export const addOrderItems = (order) => async (dispatch, getState) => {
     });
   }
 };
+
+export const getOrderDetail = (id) => async (dispatch, getState) => {
+  dispatch({ type: orderActionType.ORDER_DETAIL_REQUEST });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/order/${id}`, config);
+    dispatch({ type: orderActionType.ORDER_DETAIL_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: orderActionType.ORDER_DETAIL_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const emptyState = () => (dispatch) => {
   dispatch({ type: 'EMPTY_STATE' });
 };

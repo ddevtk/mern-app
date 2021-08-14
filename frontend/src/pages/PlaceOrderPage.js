@@ -35,7 +35,8 @@ const PlaceOrderPage = () => {
     return acc + cur.price * cur.qty;
   }, 0);
 
-  cart.shippingPrice = cart.itemPrices > 1000000 ? 0 : 30000;
+  cart.shippingPrice =
+    cart.itemPrices > 1000000 || cart.itemPrices === 0 ? 0 : 30000;
   cart.total = cart.itemPrices + cart.shippingPrice;
 
   const placeOrderHandler = () => {
@@ -51,6 +52,10 @@ const PlaceOrderPage = () => {
     );
   };
 
+  if (!cart.paymentMethod) {
+    history.push('/payment');
+  }
+
   useEffect(() => {
     if (isSuccess) {
       setTimeout(() => {
@@ -60,11 +65,12 @@ const PlaceOrderPage = () => {
   }, [isSuccess]);
   useEffect(() => {
     return () => {
-      dispatch(clearCart());
       dispatch(emptyState());
     };
   }, []);
+
   const key = 'updatable';
+
   return (
     <Container>
       {isLoading && message.loading({ content: 'Loading...', key })}
@@ -158,20 +164,19 @@ const PlaceOrderPage = () => {
               <ListGroup.Item
                 style={{ display: 'flex', justifyContent: 'center' }}
               >
-                {localStorage.getItem('userInfo') ? (
+                {localStorage.getItem('userInfo') && cartItems.length > 0 && (
                   <Link className='btn'>
-                    <Button
-                      disable={cartItems.length === 0}
-                      onClick={placeOrderHandler}
-                    >
-                      Place order
-                    </Button>
+                    <Button onClick={placeOrderHandler}>Place order</Button>
                   </Link>
-                ) : (
+                )}
+                {!localStorage.getItem('userInfo') && cartItems.length > 0 && (
                   <Link to='/login' className='btn'>
-                    <Button disable={cartItems.length === 0}>
-                      Login to payment
-                    </Button>
+                    <Button>Login to payment</Button>
+                  </Link>
+                )}
+                {localStorage.getItem('userInfo') && cartItems.length === 0 && (
+                  <Link to='/' className='btn'>
+                    <Button>Your card is empty</Button>
                   </Link>
                 )}
               </ListGroup.Item>
