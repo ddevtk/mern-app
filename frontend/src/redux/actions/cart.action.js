@@ -25,5 +25,8 @@ export const saveShippingAddress = (data) => (dispatch) => {
   dispatch({ type: cartActionType.SAVE_SHIPPING_ADDRESS, payload: data });
 };
 export const savePaymentMethod = (method) => (dispatch) => {
-  dispatch({ type: cartActionType.SAVE_PAYMENT_METHOD });
+  dispatch({ type: cartActionType.SAVE_PAYMENT_METHOD, payload: method });
+};
+export const clearCart = () => (dispatch) => {
+  dispatch({ type: cartActionType.CLEAR_CART });
 };

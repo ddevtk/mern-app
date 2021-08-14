@@ -31,6 +31,7 @@ const CheckoutSteps = () => {
     if (step === 2) {
       history.push('/place-order');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
   return (

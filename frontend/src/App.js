@@ -13,8 +13,10 @@ import RegisterPage from './pages/RegisterPage';
 import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PaymentMethodPage from './pages/PaymentMethodPage';
+import PlaceOrderPage from './pages/PlaceOrderPage';
 
 function App() {
+  console.log(localStorage.getItem('userInfo'));
   return (
     <Router>
       <Header />
@@ -46,6 +48,7 @@ function App() {
           </Route>
           <Route exact path='/shipping' component={ShippingPage} />
           <Route exact path='/payment' component={PaymentMethodPage} />
+          <Route exact path='/place-order' component={PlaceOrderPage} />
         </Container>
       </main>
       <Footer />

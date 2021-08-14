@@ -32,7 +32,3 @@ h2 {
 .ant-result-info .ant-result-icon > .anticon {
   color: black !important;
 }
-.ant-message-custom-content {
-  display: flex;
-  align-items: center;
-}

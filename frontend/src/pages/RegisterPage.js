@@ -16,8 +16,6 @@ const RegisterPage = () => {
   const dispatch = useDispatch();
   const { isLoading, error, user } = useSelector((state) => state.userLogin);
 
-  console.log(isLoading);
-
   const submitHandler = (e) => {
     e.preventDefault();
     if (pwd !== cPwd) {

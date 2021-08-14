@@ -108,9 +108,15 @@ const CartPage = ({ location }) => {
             <ListGroup.Item
               style={{ display: 'flex', justifyContent: 'center' }}
             >
-              <Link to='/shipping' className='btn'>
-                <ButtonBs>Process to checkout</ButtonBs>
-              </Link>
+              {localStorage.getItem('userInfo') ? (
+                <Link to='/shipping' className='btn'>
+                  <ButtonBs>Process to checkout</ButtonBs>
+                </Link>
+              ) : (
+                <Link to='/login' className='btn'>
+                  <ButtonBs>Login to payment</ButtonBs>
+                </Link>
+              )}
             </ListGroup.Item>
           </ListGroup>
         </Card>

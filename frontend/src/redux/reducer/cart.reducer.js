@@ -12,7 +12,6 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         const cartItems = state.cartItems.map((el) =>
           el.product === existItem.product ? item : existItem
         );
-        console.log(cartItems);
         localStorage.setItem('cartItems', JSON.stringify(cartItems));
         return {
           ...state,
@@ -38,6 +37,15 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         ...state,
         shippingAddress: action.payload,
       };
+
+    case cartActionType.SAVE_PAYMENT_METHOD:
+      localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
+      return {
+        ...state,
+        paymentMethod: action.payload,
+      };
+    case cartActionType.CLEAR_CART:
+      return { cartItems: [] };
 
     default:
       return state;

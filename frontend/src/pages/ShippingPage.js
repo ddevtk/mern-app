@@ -12,15 +12,13 @@ const ShippingPage = () => {
 
   const [address, setAddress] = useState(shippingAddress.address);
   const [city, setCity] = useState(shippingAddress.city);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  const [country, setCountry] = useState(shippingAddress.country);
 
   const dispatch = useDispatch();
   const history = useHistory();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShippingAddress({ address, city, postalCode, country }));
+    dispatch(saveShippingAddress({ address, city }));
     history.push('/payment');
   };
   return (
@@ -49,24 +47,7 @@ const ShippingPage = () => {
                   onChange={(e) => setCity(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group>
-                <Form.Label>PostalCode</Form.Label>
-                <Form.Control
-                  type='text'
-                  value={postalCode}
-                  placeholder='Enter PostalCode'
-                  onChange={(e) => setPostalCode(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Country</Form.Label>
-                <Form.Control
-                  type='text'
-                  value={country}
-                  placeholder='Enter Country'
-                  onChange={(e) => setCountry(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
+
               <Button variant='primary' type='submit' className='my-4'>
                 Continue
               </Button>
