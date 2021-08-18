@@ -2,20 +2,13 @@ const catchAsyncFn = require('../utils/catchAsyncFn');
 const Order = require('../model/orderModel');
 
 const addOrderItems = catchAsyncFn(async (req, res, next) => {
-  const {
-    orderItems,
-    shippingAddress,
-    paymentMethod,
-    shippingPrice,
-    itemPrices,
-    totalPrice,
-  } = req.body;
+  const { orderItems, shippingAddress, shippingPrice, itemPrices, totalPrice } =
+    req.body;
 
   const order = new Order({
     orderItems,
     user: req.user._id,
     shippingAddress,
-    paymentMethod,
     itemPrices,
     shippingPrice,
     totalPrice,
@@ -25,34 +18,16 @@ const addOrderItems = catchAsyncFn(async (req, res, next) => {
 });
 
 const getOrderById = catchAsyncFn(async (req, res, next) => {
-  const order = await Order.findById(req.params.id).populate(
-    'user',
-    'email name'
-  );
-  if (order) {
-    return res.status(200).json(order);
+  console.log(req.params.id);
+  const order = await Order.find({
+    _id: req.params.id,
+    user: req.body.userId,
+  }).populate('user', 'email name');
+  if (!order[0]) {
+    res.status(404);
+    return next(new Error('Order not found'));
   }
-  res.status(404);
-  return next(new Error('Order not found'));
+  return res.status(200).json(order);
 });
 
-const updateOrderToPaid = catchAsyncFn(async (req, res, next) => {
-  const updateOrder = await Order.findByIdAndUpdate(req.params.id, {
-    idPaid: true,
-    paidAt: Date.now(),
-    paymentResults: {
-      id: req.body.id,
-      status: req.body.status,
-      updateTime: req.body.updateTime,
-      emailAddress: req.body.emailAddress,
-    },
-  });
-
-  if (updateOrder) {
-    return res.status(200).json(updateOrder);
-  }
-  res.status(404);
-  return next(new Error('Order not found'));
-});
-
-module.exports = { addOrderItems, getOrderById, updateOrderToPaid };
+module.exports = { addOrderItems, getOrderById };

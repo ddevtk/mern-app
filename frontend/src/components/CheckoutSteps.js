@@ -8,10 +8,8 @@ const CheckoutSteps = () => {
   const pathName = window.location.pathname;
   if (pathName === '/shipping') {
     stp = 0;
-  } else if (pathName === '/payment') {
-    stp = 1;
   } else {
-    stp = 2;
+    stp = 1;
   }
   const { Step } = Steps;
   const [step, setStep] = useState(stp);
@@ -26,9 +24,6 @@ const CheckoutSteps = () => {
       history.push('/shipping');
     }
     if (step === 1) {
-      history.push('/payment');
-    }
-    if (step === 2) {
       history.push('/place-order');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,8 +32,7 @@ const CheckoutSteps = () => {
   return (
     <Steps current={step} className='mb-4' onChange={onChange}>
       <Step title='Shipping' />
-      <Step title='Payment' disabled={step === 0} />
-      <Step title='Place order' disabled={step === 0 || step === 1} />
+      <Step title='Place order' disabled={step === 0} />
     </Steps>
   );
 };

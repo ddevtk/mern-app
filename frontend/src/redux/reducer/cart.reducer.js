@@ -18,6 +18,10 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
           cartItems: cartItems,
         };
       } else {
+        localStorage.setItem(
+          'cartItems',
+          JSON.stringify([...state.cartItems, item])
+        );
         return { ...state, cartItems: [...state.cartItems, item] };
       }
 
@@ -38,14 +42,7 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         shippingAddress: action.payload,
       };
 
-    case cartActionType.SAVE_PAYMENT_METHOD:
-      localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
-      return {
-        ...state,
-        paymentMethod: action.payload,
-      };
     case cartActionType.CLEAR_CART:
-      localStorage.removeItem('paymentMethod');
       localStorage.removeItem('shippingAddress');
       return { cartItems: [] };
 

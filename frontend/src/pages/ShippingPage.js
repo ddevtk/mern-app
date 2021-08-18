@@ -17,9 +17,10 @@ const ShippingPage = () => {
   const history = useHistory();
 
   const submitHandler = (e) => {
+    console.log('ejll');
     e.preventDefault();
     dispatch(saveShippingAddress({ address, city }));
-    history.push('/payment');
+    history.push('/place-order');
   };
   return (
     <Container>

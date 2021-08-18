@@ -52,10 +52,6 @@ const PlaceOrderPage = () => {
     );
   };
 
-  if (!cart.paymentMethod) {
-    history.push('/payment');
-  }
-
   useEffect(() => {
     if (isSuccess) {
       setTimeout(() => {
@@ -63,6 +59,7 @@ const PlaceOrderPage = () => {
       }, 1000);
     }
   }, [isSuccess]);
+
   useEffect(() => {
     return () => {
       dispatch(emptyState());

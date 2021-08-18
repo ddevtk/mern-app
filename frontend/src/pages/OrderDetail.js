@@ -2,20 +2,27 @@ import React, { useEffect } from 'react';
 import { Container, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getOrderDetail } from '../redux/actions/order.action';
+import { PayPalButton } from 'react-paypal-button-v2';
+import { getOrderDetail, orderPay } from '../redux/actions/order.action';
 import { formatPrice } from '../utils/formatPrice';
 import Spin from '../components/Spin';
 import { Alert } from 'antd';
 import 'antd/dist/antd.css';
+import { clearCart } from '../redux/actions/cart.action';
 
 const OrderDetail = ({ match }) => {
   const { order, isLoading, error, isSuccess } = useSelector(
     (state) => state.orderDetail
   );
+  console.log(order);
+  const {
+    user: { _id },
+  } = useSelector((state) => state.userLogin);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getOrderDetail(match.params.id));
+    dispatch(clearCart());
+    dispatch(getOrderDetail({ id: match.params.id, userId: _id }));
   }, []);
 
   return (
@@ -32,29 +39,31 @@ const OrderDetail = ({ match }) => {
                   <p>
                     Address:{' '}
                     <strong>
-                      {order.shippingAddress.address},{' '}
-                      {order.shippingAddress.city}
+                      {order[0].shippingAddress.address},{' '}
+                      {order[0].shippingAddress.city}
                     </strong>
                   </p>
                   <p>
-                    Name: <strong>{order.user.name}</strong>
+                    Name: <strong>{order[0].user.name}</strong>
                   </p>
                   <p>
-                    Email: <strong>{order.user.email}</strong>
+                    Email: <strong>{order[0].user.email}</strong>
                   </p>
-                  {!order.isDelivered && (
+                  {!order[0].isDelivered && (
                     <Alert message='Not Delivered' type='warning' />
                   )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <h2>Payment method</h2>
-                  <p>Method: {order.paymentMethod}</p>
-                  {!order.isPaid && <Alert message='Not Paid' type='warning' />}
+                  <p>Method: {order[0].paymentMethod}</p>
+                  {!order[0].isPaid && (
+                    <Alert message='Not Paid' type='warning' />
+                  )}
                 </ListGroup.Item>
                 <ListGroup.Item>
                   <h2>Order Items</h2>
                   <ListGroup variant='flush'>
-                    {order.orderItems.map((item) => {
+                    {order[0].orderItems.map((item) => {
                       const { name, image, qty, price, product } = item;
                       return (
                         <ListGroup.Item>
@@ -93,7 +102,7 @@ const OrderDetail = ({ match }) => {
                       <Col>Items</Col>
                       <Col>
                         {formatPrice(
-                          order.orderItems.reduce((acc, cur) => {
+                          order[0].orderItems.reduce((acc, cur) => {
                             return acc + cur.price * cur.qty;
                           }, 0)
                         )}
@@ -103,19 +112,16 @@ const OrderDetail = ({ match }) => {
                   <ListGroup.Item>
                     <Row>
                       <Col>Shipping</Col>
-                      <Col>{formatPrice(order.shippingPrice)}</Col>
+                      <Col>{formatPrice(order[0].shippingPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
 
                   <ListGroup.Item>
                     <Row>
                       <Col>Total</Col>
-                      <Col>{formatPrice(order.totalPrice)}</Col>
+                      <Col>{formatPrice(order[0].totalPrice)}</Col>
                     </Row>
                   </ListGroup.Item>
-                  <ListGroup.Item
-                    style={{ display: 'flex', justifyContent: 'center' }}
-                  ></ListGroup.Item>
                 </ListGroup>
               </Card>
             </Col>
