@@ -42,11 +42,7 @@ export const getOrderDetail = (props) => async (dispatch, getState) => {
       },
     };
 
-    const { data } = await axios.post(
-      `/api/order/${props.id}`,
-      { userId: props.userId },
-      config
-    );
+    const { data } = await axios.get(`/api/order/${props.id}`, config);
 
     dispatch({
       type: orderActionType.ORDER_DETAIL_SUCCESS,

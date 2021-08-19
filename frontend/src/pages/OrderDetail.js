@@ -17,14 +17,11 @@ const OrderDetail = ({ match }) => {
     (state) => state.orderDetail
   );
 
-  const {
-    user: { _id },
-  } = useSelector((state) => state.userLogin);
-
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(clearCart());
-    dispatch(getOrderDetail({ id: match.params.id, userId: _id }));
+    dispatch(getOrderDetail({ id: match.params.id }));
   }, []);
 
   return (
