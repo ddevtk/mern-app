@@ -20,6 +20,7 @@ import ShippingPage from './pages/ShippingPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderDetail from './pages/OrderDetail';
 import Page404 from './pages/Page404';
+import OrderPage from './pages/OrderPage';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function App() {
             </Route>
             <Route exact path='/shipping' component={ShippingPage} />
             <Route exact path='/place-order' component={PlaceOrderPage} />
+            <Route exact path='/order' component={OrderPage} />
             <Route exact path='/order/:id' component={OrderDetail} />
             <Route path='*' component={Page404} />
           </Switch>

@@ -3,6 +3,7 @@ const asyncHandler = require('express-async-handler');
 const Order = require('../model/orderModel');
 
 const addOrderItems = asyncHandler(async (req, res, next) => {
+  console.log('hello');
   const { orderItems, shippingAddress, shippingPrice, itemPrices, totalPrice } =
     req.body;
 
@@ -37,10 +38,11 @@ const getMyOrder = asyncHandler(async (req, res, next) => {
   }).populate('user', 'email name');
   if (order[0]) {
     res.status(200).json(order);
-    next();
+    console.log(order);
+  } else {
+    res.status(404);
+    throw new Error('No order');
   }
-  res.status(404);
-  throw new Error('No order');
 });
 
 module.exports = { addOrderItems, getOrderById, getMyOrder };

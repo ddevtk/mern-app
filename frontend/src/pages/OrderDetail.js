@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getOrderDetail } from '../redux/actions/order.action';
 import { formatPrice } from '../utils/formatPrice';
 import Spin from '../components/Spin';
@@ -10,9 +10,6 @@ import 'antd/dist/antd.css';
 import { clearCart } from '../redux/actions/cart.action';
 
 const OrderDetail = ({ match }) => {
-  // const history = useHistory();
-  // !localStorage.getItem('userInfo') && history.push('/');
-
   const { order, isLoading, error, isSuccess } = useSelector(
     (state) => state.orderDetail
   );
