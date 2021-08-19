@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { Container, Row, Col, ListGroup, Image, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { PayPalButton } from 'react-paypal-button-v2';
-import { getOrderDetail, orderPay } from '../redux/actions/order.action';
+import { Link, useHistory } from 'react-router-dom';
+import { getOrderDetail } from '../redux/actions/order.action';
 import { formatPrice } from '../utils/formatPrice';
 import Spin from '../components/Spin';
 import { Alert } from 'antd';
@@ -11,10 +10,13 @@ import 'antd/dist/antd.css';
 import { clearCart } from '../redux/actions/cart.action';
 
 const OrderDetail = ({ match }) => {
+  // const history = useHistory();
+  // !localStorage.getItem('userInfo') && history.push('/');
+
   const { order, isLoading, error, isSuccess } = useSelector(
     (state) => state.orderDetail
   );
-  console.log(order);
+
   const {
     user: { _id },
   } = useSelector((state) => state.userLogin);
@@ -54,8 +56,7 @@ const OrderDetail = ({ match }) => {
                   )}
                 </ListGroup.Item>
                 <ListGroup.Item>
-                  <h2>Payment method</h2>
-                  <p>Method: {order[0].paymentMethod}</p>
+                  <h2>Payment</h2>
                   {!order[0].isPaid && (
                     <Alert message='Not Paid' type='warning' />
                   )}

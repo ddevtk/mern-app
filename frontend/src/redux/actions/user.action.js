@@ -81,6 +81,7 @@ export const updateProfile = (userInfo) => async (dispatch, getState) => {
 export const refresh = () => (dispatch) => {
   dispatch({ type: userActionType.REFRESH });
 };
+
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({ type: userActionType.LOGOUT });

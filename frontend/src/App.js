@@ -1,5 +1,10 @@
 import { Container } from 'react-bootstrap';
-import { BrowserRouter as Router, Redirect, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Route,
+  Switch,
+} from 'react-router-dom';
 
 import Footer from './components/Footer';
 import Header from './components/Header';
@@ -14,6 +19,7 @@ import ProfilePage from './pages/ProfilePage';
 import ShippingPage from './pages/ShippingPage';
 import PlaceOrderPage from './pages/PlaceOrderPage';
 import OrderDetail from './pages/OrderDetail';
+import Page404 from './pages/Page404';
 
 function App() {
   return (
@@ -21,33 +27,36 @@ function App() {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route exact path='/' component={HomePage} />
-          <Route exact path='/product/:id' component={SingleProductPage} />
-          <Route exact path='/cart/:id?' component={CartPage} />
-          <Route exact path='/login'>
-            {localStorage.getItem('userInfo') ? (
-              <Redirect to='/' />
-            ) : (
-              <LoginPage />
-            )}
-          </Route>
-          <Route exact path='/register'>
-            {localStorage.getItem('userInfo') ? (
-              <Redirect to='/' />
-            ) : (
-              <RegisterPage />
-            )}
-          </Route>
-          <Route exact path='/profile'>
-            {localStorage.getItem('userInfo') ? (
-              <ProfilePage />
-            ) : (
-              <Redirect to='/login' />
-            )}
-          </Route>
-          <Route exact path='/shipping' component={ShippingPage} />
-          <Route exact path='/place-order' component={PlaceOrderPage} />
-          <Route exact path='/order/:id' component={OrderDetail} />
+          <Switch>
+            <Route exact path='/' component={HomePage} />
+            <Route exact path='/product/:id' component={SingleProductPage} />
+            <Route exact path='/cart/:id?' component={CartPage} />
+            <Route exact path='/login'>
+              {localStorage.getItem('userInfo') ? (
+                <Redirect to='/' />
+              ) : (
+                <LoginPage />
+              )}
+            </Route>
+            <Route exact path='/register'>
+              {localStorage.getItem('userInfo') ? (
+                <Redirect to='/' />
+              ) : (
+                <RegisterPage />
+              )}
+            </Route>
+            <Route exact path='/profile'>
+              {localStorage.getItem('userInfo') ? (
+                <ProfilePage />
+              ) : (
+                <Redirect to='/login' />
+              )}
+            </Route>
+            <Route exact path='/shipping' component={ShippingPage} />
+            <Route exact path='/place-order' component={PlaceOrderPage} />
+            <Route exact path='/order/:id' component={OrderDetail} />
+            <Route path='*' component={Page404} />
+          </Switch>
         </Container>
       </main>
       <Footer />
