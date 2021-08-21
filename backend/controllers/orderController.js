@@ -32,17 +32,4 @@ const getOrderById = asyncHandler(async (req, res, next) => {
   }
 });
 
-const getMyOrder = asyncHandler(async (req, res, next) => {
-  const order = await Order.find({
-    user: req.body.userId,
-  }).populate('user', 'email name');
-  if (order[0]) {
-    res.status(200).json(order);
-    console.log(order);
-  } else {
-    res.status(404);
-    throw new Error('No order');
-  }
-});
-
-module.exports = { addOrderItems, getOrderById, getMyOrder };
+module.exports = { addOrderItems, getOrderById };

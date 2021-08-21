@@ -63,6 +63,11 @@ const Header = () => {
                       Profile
                     </Link>
                   </NavDropdown.Item>
+                  <NavDropdown.Item>
+                    <Link className='product-title' to='/order'>
+                      Order
+                    </Link>
+                  </NavDropdown.Item>
                   <NavDropdown.Item onClick={logoutHandler}>
                     <Link className='product-title'>Logout</Link>
                   </NavDropdown.Item>

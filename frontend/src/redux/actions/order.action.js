@@ -59,7 +59,7 @@ export const getOrderDetail = (props) => async (dispatch, getState) => {
   }
 };
 
-export const getMyOrder = (userId) => async (dispatch, getState) => {
+export const getMyOrder = () => async (dispatch, getState) => {
   dispatch({ type: orderActionType.ORDER_LIST_REQUEST });
   try {
     const {
@@ -72,9 +72,8 @@ export const getMyOrder = (userId) => async (dispatch, getState) => {
         Authorization: `Bearer ${user.token}`,
       },
     };
-    console.log(userId);
 
-    const { data } = await axios.post('/api/order/myOrder', { userId }, config);
+    const { data } = await axios.get('/api/myOrder', config);
 
     dispatch({
       type: orderActionType.ORDER_LIST_SUCCESS,

@@ -8,6 +8,7 @@ const app = express();
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const myOrderRoutes = require('./routes/myOrderRoutes');
 
 const globalErrorHandler = require('./middleware/errorMiddleware');
 
@@ -25,6 +26,7 @@ app.get('/api', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/order', orderRoutes);
+app.use('/api/myOrder', myOrderRoutes);
 
 // Global error handler
 app.all('*', (req, res, next) => {

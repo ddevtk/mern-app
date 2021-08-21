@@ -12,12 +12,9 @@ const OrderPage = () => {
   const { orderList, isLoading, isSuccess, error } = useSelector(
     (state) => state.orderList
   );
-  const {
-    user: { _id },
-  } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
-    dispatch(getMyOrder(_id));
+    dispatch(getMyOrder());
   }, []);
 
   return (
