@@ -1,7 +1,7 @@
 import productActionType from '../type/product.type';
 
 export const productListReducer = (
-  state = { products: [], isLoading: false, error: null },
+  state = { products: [], isLoading: false, error: null, length: 1 },
   action
 ) => {
   switch (action.type) {
@@ -12,9 +12,11 @@ export const productListReducer = (
       };
 
     case productActionType.GET_ALL_PRODUCT_SUCCESS:
+      console.log(action.payload.allProduct);
       return {
         ...state,
-        products: action.payload,
+        products: action.payload.products,
+        length: action.payload.allProduct,
         isLoading: false,
         error: null,
       };

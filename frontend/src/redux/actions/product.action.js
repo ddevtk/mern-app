@@ -1,13 +1,15 @@
 import axios from 'axios';
 import productActionType from '../type/product.type';
 
-export const getAllProduct = () => async (dispatch) => {
+export const getAllProduct = (limit, current) => async (dispatch) => {
   dispatch({ type: productActionType.GET_ALL_PRODUCT_REQUEST });
   try {
-    const { data } = await axios('/api/products');
+    const {
+      data: { allProduct, products },
+    } = await axios(`/api/products?limit=${limit}&page=${current}`);
     dispatch({
       type: productActionType.GET_ALL_PRODUCT_SUCCESS,
-      payload: data,
+      payload: { allProduct, products },
     });
   } catch (error) {
     dispatch({

@@ -2,8 +2,15 @@ const catchAsyncFn = require('../utils/catchAsyncFn');
 const Product = require('../model/productModel');
 
 const getAllProduct = catchAsyncFn(async (req, res, next) => {
-  const products = await Product.find({});
-  res.status(200).json(products);
+  const current = +req.query.page || 1;
+  const limit = +req.query.limit || 4;
+  const skip = (current - 1) * limit;
+  const allProducts = await Product.find({});
+  const products = await Product.find({}).skip(skip).limit(limit);
+  res.status(200).json({
+    allProduct: allProducts.length,
+    products,
+  });
 });
 
 const getProductById = catchAsyncFn(async (req, res, next) => {
