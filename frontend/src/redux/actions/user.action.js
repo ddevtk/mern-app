@@ -77,6 +77,34 @@ export const updateProfile = (userInfo) => async (dispatch, getState) => {
     });
   }
 };
+export const getAllUser = () => async (dispatch, getState) => {
+  dispatch({ type: userActionType.USER_LIST_REQUEST });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const {
+      data: { users },
+    } = await axios.get('/api/user', config);
+    dispatch({ type: userActionType.USER_LIST_SUCCESS, payload: users });
+  } catch (error) {
+    dispatch({
+      type: userActionType.USER_LIST_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 export const refresh = () => (dispatch) => {
   dispatch({ type: userActionType.REFRESH });

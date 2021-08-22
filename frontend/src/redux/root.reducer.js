@@ -4,7 +4,11 @@ import {
   productListReducer,
 } from './reducer/product.reducer';
 import { cartReducer } from './reducer/cart.reducer';
-import { loginReducer, updateProfileReducer } from './reducer/user.reducer';
+import {
+  loginReducer,
+  updateProfileReducer,
+  userListReducer,
+} from './reducer/user.reducer';
 import {
   orderDetailReducer,
   orderListReducer,
@@ -20,6 +24,7 @@ const rootReducer = combineReducers({
   order: orderReducer,
   orderDetail: orderDetailReducer,
   orderList: orderListReducer,
+  userList: userListReducer,
 });
 
 export default rootReducer;

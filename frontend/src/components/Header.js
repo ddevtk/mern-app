@@ -56,7 +56,7 @@ const Header = () => {
                 <MdShoppingCart style={{ margin: '-3px 3px 0 0' }} />
                 Cart
               </Link>
-              {user?.name ? (
+              {user.name ? (
                 <NavDropdown title={user.name}>
                   <NavDropdown.Item>
                     <Link className='product-title' to='/profile'>
@@ -65,9 +65,32 @@ const Header = () => {
                   </NavDropdown.Item>
                   <NavDropdown.Item>
                     <Link className='product-title' to='/order'>
-                      Order
+                      My Order
                     </Link>
                   </NavDropdown.Item>
+
+                  {user.name && user.isAdmin && (
+                    <>
+                      <NavDropdown.Item>
+                        <Link className='product-title' to='/admin/user-list'>
+                          All User
+                        </Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <Link
+                          className='product-title'
+                          to='/product/product-list'
+                        >
+                          All Product
+                        </Link>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <Link className='product-title' to='/order/order-list'>
+                          All Order
+                        </Link>
+                      </NavDropdown.Item>
+                    </>
+                  )}
                   <NavDropdown.Item onClick={logoutHandler}>
                     <Link className='product-title'>Logout</Link>
                   </NavDropdown.Item>
