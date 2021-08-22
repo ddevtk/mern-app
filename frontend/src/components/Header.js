@@ -26,9 +26,9 @@ const Header = () => {
         expand='lg'
       >
         <Container>
-          <Link to='/'>
+          <a href='/'>
             <Navbar.Brand>ddevtk Shop</Navbar.Brand>
-          </Link>
+          </a>
           <Navbar.Toggle aria-controls='navbarScroll' />
           <Navbar.Collapse id='navbarScroll'>
             <Form className='d-flex'>

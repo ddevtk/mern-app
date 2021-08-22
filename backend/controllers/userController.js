@@ -79,4 +79,19 @@ const register = catchAsyncFn(async (req, res, next) => {
   return next(new Error('Invalid user data'));
 });
 
-module.exports = { authUser, userProfile, register, updateUserProfile };
+// Get all user ( admin only )
+const getAllUser = catchAsyncFn(async (req, res, next) => {
+  const users = await User.find({});
+  res.json({
+    result: users.length,
+    users,
+  });
+});
+
+module.exports = {
+  authUser,
+  userProfile,
+  register,
+  updateUserProfile,
+  getAllUser,
+};

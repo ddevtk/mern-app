@@ -4,7 +4,7 @@ const {
   addOrderItems,
   getOrderById,
 } = require('../controllers/orderController');
-const protect = require('../middleware/authMiddleware');
+const { protect } = require('../middleware/authMiddleware');
 
 router.route('/:id').get(protect, getOrderById);
 router.route('/add').post(protect, addOrderItems);

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../model/userModel');
 const catchAsyncFn = require('../utils/catchAsyncFn');
 
-module.exports = protect = catchAsyncFn(async (req, res, next) => {
+const protect = catchAsyncFn(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -23,3 +23,14 @@ module.exports = protect = catchAsyncFn(async (req, res, next) => {
     return next(new Error('No authorized, no token'));
   }
 });
+
+const admin = catchAsyncFn(async (req, res, next) => {
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    res.status(401);
+    return next(new Error('Not authorized as an admin'));
+  }
+});
+
+module.exports = { admin, protect };
