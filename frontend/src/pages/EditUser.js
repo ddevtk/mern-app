@@ -9,7 +9,7 @@ import {
 } from '../redux/actions/user.action';
 import { message } from 'antd';
 import 'antd/dist/antd.css';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 
 const EditUser = () => {
   const { user, isSuccess: success } = useSelector((state) => state.user);
@@ -20,6 +20,7 @@ const EditUser = () => {
   const { id } = useParams();
 
   const dispatch = useDispatch();
+  const history = useHistory();
   useEffect(() => {
     dispatch(getUserById(id));
   }, []);
@@ -40,7 +41,9 @@ const EditUser = () => {
       setIsAdmin(user.isAdmin);
     }
     if (isSuccess) {
-      window.location.reload();
+      setTimeout(() => {
+        history.push('/admin/user-list');
+      }, 1000);
     }
     if (error) {
       dispatch(refresh());
@@ -52,7 +55,7 @@ const EditUser = () => {
     <Container>
       <Row className='justify-content-md-center'>
         <Col xs={12} md={6}>
-          <h1>User Profile</h1>
+          <h1>Edit User</h1>
           {isLoading && message.loading({ content: 'Loading...', key })}
           {error && message.error({ content: error, key, duration: 3 })}
           {isSuccess &&
