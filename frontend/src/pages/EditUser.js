@@ -48,7 +48,7 @@ const EditUser = () => {
     if (error) {
       dispatch(refresh());
     }
-  }, [isSuccess, dispatch, error, success, user]);
+  }, [isSuccess, dispatch, error, success, user, history]);
 
   const key = 'updatable';
   return (

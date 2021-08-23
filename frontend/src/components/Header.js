@@ -79,13 +79,13 @@ const Header = () => {
                       <NavDropdown.Item>
                         <Link
                           className='product-title'
-                          to='/product/product-list'
+                          to='/admin/product-list'
                         >
                           All Product
                         </Link>
                       </NavDropdown.Item>
                       <NavDropdown.Item>
-                        <Link className='product-title' to='/order/order-list'>
+                        <Link className='product-title' to='/admin/order-list'>
                           All Order
                         </Link>
                       </NavDropdown.Item>

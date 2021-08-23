@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Tooltip, message, Popconfirm } from 'antd';
-import { Table } from 'react-bootstrap';
+import { message, Popconfirm } from 'antd';
+import { Button, Col, Image, Row, Table } from 'react-bootstrap';
 import { FaTimes, FaCheck, FaUserEdit } from 'react-icons/fa';
 import { AiOutlineUserDelete } from 'react-icons/ai';
-import { getAllUser } from '../redux/actions/user.action';
 import { Link, useHistory } from 'react-router-dom';
+import { AiOutlinePlus } from 'react-icons/ai';
 
 import Spin from '../components/Spin';
 import axios from 'axios';
+import { getProductPerPage } from '../redux/actions/product.action';
 
-const UserList = () => {
+const ProductList = () => {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const [deleteLoading, setDeleteLoading] = useState(false);
   const [deleteSuccess, setDeleteSuccess] = useState(false);
 
-  const { isLoading, error, isSuccess, userList } = useSelector(
-    (state) => state.userList
+  const { isLoading, error, products } = useSelector(
+    (state) => state.productList
   );
 
   const { user } = useSelector((state) => state.userLogin);
 
   useEffect(() => {
     if (user && user.isAdmin) {
-      dispatch(getAllUser());
+      dispatch(getProductPerPage(10000, 1));
     } else {
       history.push('/');
     }
@@ -42,7 +43,7 @@ const UserList = () => {
       };
       await axios.delete(`/api/user/${id}`, config);
       setTimeout(() => {
-        dispatch(getAllUser());
+        // dispatch();
       }, 2000);
       setDeleteLoading(false);
       setDeleteSuccess(true);
@@ -56,6 +57,13 @@ const UserList = () => {
 
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h1>Products</h1>
+
+        <Button className='my-3'>
+          <AiOutlinePlus /> Create products
+        </Button>
+      </div>
       {deleteLoading && message.loading({ content: 'Loading...', key })}
       {deleteSuccess &&
         message.success({
@@ -67,34 +75,35 @@ const UserList = () => {
 
       {isLoading && <Spin />}
       {error && <h1>{error}</h1>}
-      {isSuccess && (
+      {products.length > 0 && (
         <Table bordered hover responsive className='table-sm'>
           <thead>
             <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Email</th>
-              <th>Admin</th>
+              <th>IMAGE</th>
+              <th>PRICE</th>
+              <th>CATEGORY</th>
+              <th>BRAND</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
-            {userList.map((el) => (
+            {products.map((el) => (
               <tr key={el._id}>
                 <td>{el._id}</td>
                 <td>{el.name}</td>
                 <td>
-                  <a href={`mailto:${el.email}`} className='product-title'>
-                    <Tooltip title={`Mail to ${el.email}`}>{el.email}</Tooltip>
-                  </a>
+                  <Image
+                    src={el.image}
+                    alt={el.name}
+                    className='img-fluid'
+                    style={{ width: '50px', height: '50px' }}
+                  />
                 </td>
-                <td>
-                  {el.isAdmin ? (
-                    <FaCheck style={{ color: 'green' }} />
-                  ) : (
-                    <FaTimes style={{ color: 'red' }} />
-                  )}
-                </td>
+                <td>{el.price}</td>
+                <td>{el.category}</td>
+                <td>{el.brand}</td>
                 <td
                   style={{
                     display: 'flex',
@@ -102,20 +111,16 @@ const UserList = () => {
                     alignItems: 'center',
                   }}
                 >
-                  <Link to={`/user/${el._id}/edit`}>
+                  <Link to={`/product/${el._id}/edit`}>
                     <FaUserEdit />
                   </Link>
-                  {el._id === user._id ? (
-                    ''
-                  ) : (
-                    <Popconfirm
-                      title='Are you sure to delete this user'
-                      placement='top'
-                      onConfirm={() => onConfirm(el._id)}
-                    >
-                      <AiOutlineUserDelete style={{ cursor: 'pointer' }} />
-                    </Popconfirm>
-                  )}
+                  <Popconfirm
+                    title='Are you sure to delete this product'
+                    placement='top'
+                    onConfirm={() => onConfirm(el._id)}
+                  >
+                    <AiOutlineUserDelete style={{ cursor: 'pointer' }} />
+                  </Popconfirm>
                 </td>
               </tr>
             ))}
@@ -126,4 +131,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default ProductList;

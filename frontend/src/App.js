@@ -23,6 +23,7 @@ import Page404 from './pages/Page404';
 import OrderPage from './pages/OrderPage';
 import UserList from './pages/UserList';
 import EditUser from './pages/EditUser';
+import ProductList from './pages/ProductList';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
             <Route exact path='/order' component={OrderPage} />
             <Route exact path='/order/:id' component={OrderDetail} />
             <Route exact path='/admin/user-list' component={UserList} />
+            <Route exact path='/admin/product-list' component={ProductList} />
             <Route exact path='/user/:id/edit' component={EditUser} />
             <Route path='*' component={Page404} />
           </Switch>

@@ -1,7 +1,7 @@
 const catchAsyncFn = require('../utils/catchAsyncFn');
 const Product = require('../model/productModel');
 
-const getAllProduct = catchAsyncFn(async (req, res, next) => {
+const getProductPerPage = catchAsyncFn(async (req, res, next) => {
   const current = +req.query.page || 1;
   const limit = +req.query.limit || 4;
   const skip = (current - 1) * limit;
@@ -21,4 +21,4 @@ const getProductById = catchAsyncFn(async (req, res, next) => {
   }
   res.status(200).json(product);
 });
-module.exports = { getAllProduct, getProductById };
+module.exports = { getProductPerPage, getProductById };

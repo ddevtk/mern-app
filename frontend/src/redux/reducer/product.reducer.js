@@ -12,7 +12,6 @@ export const productListReducer = (
       };
 
     case productActionType.GET_ALL_PRODUCT_SUCCESS:
-      console.log(action.payload.allProduct);
       return {
         ...state,
         products: action.payload.products,

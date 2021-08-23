@@ -1,7 +1,8 @@
 import axios from 'axios';
 import productActionType from '../type/product.type';
 
-export const getAllProduct = (limit, current) => async (dispatch) => {
+export const getProductPerPage = (limit, current) => async (dispatch) => {
+  console.log(limit, current);
   dispatch({ type: productActionType.GET_ALL_PRODUCT_REQUEST });
   try {
     const {

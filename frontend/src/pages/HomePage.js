@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from 'antd';
 import { Col, Row } from 'react-bootstrap';
 import Product from '../components/Product';
-import { getAllProduct } from '../redux/actions/product.action';
+import { getProductPerPage } from '../redux/actions/product.action';
 import Spin from '../components/Spin';
 import 'antd/dist/antd.css';
 
@@ -14,17 +14,13 @@ const HomePage = () => {
   );
   const [current, setCurrent] = useState(1);
 
-  console.log(products);
-
-  console.log(length);
-
   useEffect(() => {
-    dispatch(getAllProduct());
+    dispatch(getProductPerPage());
   }, []);
 
   const onChange = (current, pageSize) => {
     setCurrent(current);
-    dispatch(getAllProduct(pageSize, current));
+    dispatch(getProductPerPage(pageSize, current));
   };
 
   return (
