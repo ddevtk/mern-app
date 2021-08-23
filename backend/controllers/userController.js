@@ -88,12 +88,44 @@ const getAllUser = catchAsyncFn(async (req, res, next) => {
   });
 });
 
+// Get user by id ( admin only )
+const getUserById = catchAsyncFn(async (req, res, next) => {
+  const user = await User.findById(req.params.id).select('-password');
+  if (user) {
+    res.json(user);
+  } else {
+    res.status(404);
+    return next(new Error('User not found'));
+  }
+});
+
 // Delete user ( admin only )
 const deleteUser = catchAsyncFn(async (req, res, next) => {
   const user = await User.findByIdAndDelete(req.params.id);
   if (user) {
     res.json({
       message: 'User removed',
+    });
+  } else {
+    res.status(404);
+    return next(new Error('User not found'));
+  }
+});
+
+// Update user
+const updateUser = catchAsyncFn(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    user.isAdmin = req.body.isAdmin || user.isAdmin;
+
+    const updateUser = await user.save();
+    res.json({
+      _id: updateUser._id,
+      name: updateUser.name,
+      email: updateUser.email,
+      isAdmin: updateUser.isAdmin,
     });
   } else {
     res.status(404);
@@ -108,4 +140,6 @@ module.exports = {
   updateUserProfile,
   getAllUser,
   deleteUser,
+  getUserById,
+  updateUser,
 };
