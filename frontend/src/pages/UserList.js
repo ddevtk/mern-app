@@ -81,40 +81,37 @@ const UserList = () => {
             </tr>
           </thead>
           <tbody>
-            {userList.map((user) => (
-              <tr key={user._id}>
-                <td>{user._id}</td>
-                <td>{user.name}</td>
+            {userList.map((el) => (
+              <tr key={el._id}>
+                <td>{el._id}</td>
+                <td>{el.name}</td>
                 <td>
-                  <a href={`mailto:${user.email}`} className='product-title'>
-                    <Tooltip title={`Mail to ${user.email}`}>
-                      {user.email}
-                    </Tooltip>
+                  <a href={`mailto:${el.email}`} className='product-title'>
+                    <Tooltip title={`Mail to ${el.email}`}>{el.email}</Tooltip>
                   </a>
                 </td>
                 <td>
-                  {user.isAdmin ? (
+                  {el.isAdmin ? (
                     <FaCheck style={{ color: 'green' }} />
                   ) : (
                     <FaTimes style={{ color: 'red' }} />
                   )}
                 </td>
                 <td>
-                  <Link to={`/user/${user._id}/edit`}>
+                  <Link to={`/user/${el._id}/edit`}>
                     <FaUserEdit />
                   </Link>
                 </td>
-                {!user.isAdmin && (
+                {el._id === user._id ? (
+                  <td />
+                ) : (
                   <td>
                     <Popconfirm
                       title='Are you sure to delete this user'
                       placement='top'
-                      onConfirm={() => onConfirm(user._id)}
+                      onConfirm={() => onConfirm(el._id)}
                     >
-                      <AiOutlineUserDelete
-                        style={{ cursor: 'pointer' }}
-                        // onClick={() => deleteUserHandler(user._id)}
-                      />
+                      <AiOutlineUserDelete style={{ cursor: 'pointer' }} />
                     </Popconfirm>
                   </td>
                 )}

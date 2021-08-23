@@ -91,3 +91,53 @@ export const userListReducer = (state = {}, action) => {
       return state;
   }
 };
+export const singleUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userActionType.GET_USER_BY_ID_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case userActionType.GET_USER_BY_ID_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+        user: action.payload,
+      };
+    case userActionType.GET_USER_BY_ID_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+export const updateUserReducer = (state = {}, action) => {
+  switch (action.type) {
+    case userActionType.UPDATE_USER_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case userActionType.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: true,
+      };
+    case userActionType.UPDATE_USER_ERROR:
+      return {
+        ...state,
+        isLoading: false,
+        isSuccess: false,
+        error: action.payload,
+      };
+    case userActionType.REFRESH:
+      return {};
+    default:
+      return state;
+  }
+};

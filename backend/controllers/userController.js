@@ -114,11 +114,11 @@ const deleteUser = catchAsyncFn(async (req, res, next) => {
 
 // Update user
 const updateUser = catchAsyncFn(async (req, res, next) => {
-  const user = await User.findById(req.user._id);
+  const user = await User.findById(req.params.id);
   if (user) {
-    user.name = req.body.name || user.name;
-    user.email = req.body.email || user.email;
-    user.isAdmin = req.body.isAdmin || user.isAdmin;
+    user.name = req.body.name;
+    user.email = req.body.email;
+    user.isAdmin = req.body.isAdmin;
 
     const updateUser = await user.save();
     res.json({

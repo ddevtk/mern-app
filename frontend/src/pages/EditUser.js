@@ -1,39 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { refresh, updateUser } from '../redux/actions/user.action';
+import {
+  getUserById,
+  refresh,
+  updateProfile,
+  updateUser,
+} from '../redux/actions/user.action';
 import { message } from 'antd';
 import 'antd/dist/antd.css';
+import { useParams } from 'react-router-dom';
 
-const ProfilePage = () => {
-  const { user } = useSelector((state) => state.userLogin);
+const EditUser = () => {
+  const { user, isSuccess: success } = useSelector((state) => state.user);
   const { isLoading, isSuccess, error } = useSelector(
-    (state) => state.updateProfile
+    (state) => state.updateUser
   );
-  const [name, setName] = useState(user.name);
-  const [email, setEmail] = useState(user.email);
-  const [pwd, setPwd] = useState();
-  const [cPwd, setCPwd] = useState();
-  const [msg, setMsg] = useState(null);
+
+  const { id } = useParams();
+
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getUserById(id));
+  }, []);
+
+  const [name, setName] = useState();
+  const [email, setEmail] = useState();
+  const [isAdmin, setIsAdmin] = useState();
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (pwd !== cPwd) {
-      setMsg('Confirm password not matching ');
-    } else {
-      dispatch(updateUser({ id: user._id, name, email, password: pwd }));
-    }
+    dispatch(updateUser({ id, name, email, isAdmin }));
   };
 
   useEffect(() => {
+    if (success) {
+      setName(user.name);
+      setEmail(user.email);
+      setIsAdmin(user.isAdmin);
+    }
     if (isSuccess) {
       window.location.reload();
     }
     if (error) {
       dispatch(refresh());
     }
-  }, [isSuccess, dispatch, error]);
+  }, [isSuccess, dispatch, error, success, user]);
 
   const key = 'updatable';
   return (
@@ -42,9 +54,6 @@ const ProfilePage = () => {
         <Col xs={12} md={6}>
           <h1>User Profile</h1>
           {isLoading && message.loading({ content: 'Loading...', key })}
-          {msg !== null &&
-            message.error({ content: msg, key, duration: 2 }) &&
-            setMsg(null)}
           {error && message.error({ content: error, key, duration: 3 })}
           {isSuccess &&
             message.success({
@@ -72,22 +81,12 @@ const ProfilePage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicPassword'>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type='password'
-                  placeholder='Password'
-                  value={pwd}
-                  onChange={(e) => setPwd(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group className='mb-3' controlId='formBasicCPassword'>
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type='password'
-                  placeholder='Confirm Password'
-                  value={cPwd}
-                  onChange={(e) => setCPwd(e.target.value)}
+              <Form.Group className='mb-3' controlId='isAdmin'>
+                <Form.Check
+                  type='checkbox'
+                  label='Is Admin'
+                  checked={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.checked)}
                 />
               </Form.Group>
               <Button variant='primary' type='submit'>
@@ -101,4 +100,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default EditUser;

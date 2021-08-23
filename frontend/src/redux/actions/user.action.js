@@ -106,6 +106,66 @@ export const getAllUser = () => async (dispatch, getState) => {
   }
 };
 
+export const getUserById = (id) => async (dispatch, getState) => {
+  dispatch({ type: userActionType.GET_USER_BY_ID_REQUEST });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/user/${id}`, config);
+    dispatch({ type: userActionType.GET_USER_BY_ID_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: userActionType.GET_USER_BY_ID_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const updateUser = (userInfo) => async (dispatch, getState) => {
+  dispatch({ type: userActionType.UPDATE_USER_REQUEST });
+  console.log(userInfo);
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/user/${userInfo.id}`,
+      userInfo,
+      config
+    );
+    console.log(data);
+    dispatch({ type: userActionType.UPDATE_USER_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: userActionType.UPDATE_USER_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const refresh = () => (dispatch) => {
   dispatch({ type: userActionType.REFRESH });
 };
