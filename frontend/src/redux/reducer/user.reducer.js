@@ -26,6 +26,11 @@ export const loginReducer = (state = {}, action) => {
     case userActionType.LOGOUT:
       window.location.href = '/';
       return {};
+    case userActionType.EMPTY_STATE:
+      return {
+        ...state,
+        error: null,
+      };
     default:
       return state;
   }

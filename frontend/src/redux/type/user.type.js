@@ -13,5 +13,6 @@ const userActionType = {
   USER_LIST_ERROR: 'USER_LIST_ERROR',
   REFRESH: 'REFRESH',
   LOGOUT: 'LOGOUT',
+  EMPTY_STATE: 'EMPTY_STATE',
 };
 export default userActionType;

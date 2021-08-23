@@ -2,13 +2,8 @@ import React from 'react';
 import { Result, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
-import { useHistory } from 'react-router-dom';
 
 const Page404 = () => {
-  const history = useHistory();
-  setTimeout(() => {
-    history.push('/');
-  }, 3000);
   return (
     <Result
       status='404'

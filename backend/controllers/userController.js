@@ -88,10 +88,24 @@ const getAllUser = catchAsyncFn(async (req, res, next) => {
   });
 });
 
+// Delete user ( admin only )
+const deleteUser = catchAsyncFn(async (req, res, next) => {
+  const user = await User.findByIdAndDelete(req.params.id);
+  if (user) {
+    res.json({
+      message: 'User removed',
+    });
+  } else {
+    res.status(404);
+    return next(new Error('User not found'));
+  }
+});
+
 module.exports = {
   authUser,
   userProfile,
   register,
   updateUserProfile,
   getAllUser,
+  deleteUser,
 };

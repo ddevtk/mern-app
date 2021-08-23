@@ -109,6 +109,9 @@ export const getAllUser = () => async (dispatch, getState) => {
 export const refresh = () => (dispatch) => {
   dispatch({ type: userActionType.REFRESH });
 };
+export const emptyState = () => (dispatch) => {
+  dispatch({ type: userActionType.EMPTY_STATE });
+};
 
 export const logout = () => (dispatch) => {
   localStorage.removeItem('userInfo');
