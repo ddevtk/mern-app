@@ -15,10 +15,22 @@ const getProductPerPage = catchAsyncFn(async (req, res, next) => {
 
 const getProductById = catchAsyncFn(async (req, res, next) => {
   const product = await Product.findById(req.params.id);
+  // console.log(req.params.id);
   if (!product) {
     res.status(404);
     return next(new Error('Could not found product with that ID'));
   }
   res.status(200).json(product);
 });
-module.exports = { getProductPerPage, getProductById };
+
+const deleteProduct = catchAsyncFn(async (req, res, next) => {
+  const product = await Product.findByIdAndDelete(req.params.id);
+  if (product) {
+    res.json({ message: 'Delete successfully ' });
+  } else {
+    res.status(404);
+    return next(new Error('Product not found'));
+  }
+});
+
+module.exports = { getProductPerPage, getProductById, deleteProduct };

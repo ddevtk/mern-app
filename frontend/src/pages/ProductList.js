@@ -10,6 +10,7 @@ import { AiOutlinePlus } from 'react-icons/ai';
 import Spin from '../components/Spin';
 import axios from 'axios';
 import { getProductPerPage } from '../redux/actions/product.action';
+import { formatPrice } from '../utils/formatPrice';
 
 const ProductList = () => {
   const dispatch = useDispatch();
@@ -41,9 +42,9 @@ const ProductList = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      await axios.delete(`/api/user/${id}`, config);
+      await axios.delete(`/api/products/${id}`, config);
       setTimeout(() => {
-        // dispatch();
+        dispatch(getProductPerPage(10000, 1));
       }, 2000);
       setDeleteLoading(false);
       setDeleteSuccess(true);
@@ -58,9 +59,15 @@ const ProductList = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <h1>Products</h1>
-
-        <Button className='my-3'>
+        <h1>All products</h1>
+        <Button
+          className='my-3'
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+        >
           <AiOutlinePlus /> Create products
         </Button>
       </div>
@@ -101,7 +108,7 @@ const ProductList = () => {
                     style={{ width: '50px', height: '50px' }}
                   />
                 </td>
-                <td>{el.price}</td>
+                <td>{formatPrice(el.price)}</td>
                 <td>{el.category}</td>
                 <td>{el.brand}</td>
                 <td
