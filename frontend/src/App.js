@@ -24,6 +24,7 @@ import OrderPage from './pages/OrderPage';
 import UserList from './pages/UserList';
 import EditUser from './pages/EditUser';
 import ProductList from './pages/ProductList';
+import EditProduct from './pages/EditProduct';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route exact path='/admin/user-list' component={UserList} />
             <Route exact path='/admin/product-list' component={ProductList} />
             <Route exact path='/user/:id/edit' component={EditUser} />
+            <Route exact path='/product/:id/edit' component={EditProduct} />
             <Route path='*' component={Page404} />
           </Switch>
         </Container>

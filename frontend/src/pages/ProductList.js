@@ -93,6 +93,7 @@ const ProductList = () => {
               <th>CATEGORY</th>
               <th>BRAND</th>
               <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -111,16 +112,12 @@ const ProductList = () => {
                 <td>{formatPrice(el.price)}</td>
                 <td>{el.category}</td>
                 <td>{el.brand}</td>
-                <td
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-evenly',
-                    alignItems: 'center',
-                  }}
-                >
+                <td>
                   <Link to={`/product/${el._id}/edit`}>
                     <FaUserEdit />
                   </Link>
+                </td>
+                <td>
                   <Popconfirm
                     title='Are you sure to delete this product'
                     placement='top'

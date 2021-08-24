@@ -40,3 +40,35 @@ export const getSingleProduct = (id) => async (dispatch) => {
     });
   }
 };
+export const updateProduct = (productInfo) => async (dispatch, getState) => {
+  console.log(productInfo);
+  dispatch({ type: productActionType.UPDATE_PRODUCT_REQUEST });
+  try {
+    const {
+      userLogin: { user },
+    } = getState();
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+
+    const { data } = await axios.put(
+      `/api/products/${productInfo.id}`,
+      productInfo,
+      config
+    );
+    console.log(data);
+    dispatch({ type: productActionType.UPDATE_PRODUCT_SUCCESS });
+  } catch (error) {
+    dispatch({
+      type: productActionType.UPDATE_PRODUCT_ERROR,
+      payload:
+        error.message && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
